@@ -1,0 +1,113 @@
+/*Movie Grid*/
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.82rem;
+    color: white;
+    line-height: 1.5;
+    background: #0a0a0f;
+    margin: 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    letter-spacing: 4px;
+}
+
+.moviesSection {
+    padding: 60px 40px;
+}
+
+.movieGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+.movieCard {
+    background: #1a1a1f;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.movieCard img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+}
+
+.movieCard div {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.movieCard p {
+    margin: 0 0 8px 0;
+    flex: 1;
+}
+
+.movieCard button {
+    width: 100%;
+    padding: 10px;
+    background: #e50914;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: auto;
+}
+
+.movieCard button:hover {
+    background: #ff1a1a;
+}
+
+/*Movie carousel/slider*/
+.imageCarousel {
+    visibility: hidden;
+}
+
+.imageCarousel.loaded {
+    visibility: visible;
+    margin: 100px auto;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+}
+
+.group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 5em;
+    padding-right: 5em;
+    animation: scroll 100s infinite linear;
+}
+
+.card {
+    flex-shrink: 0;
+    width: 10em;
+    height: 15em;
+    background: grey;
+    font-size: 1.5rem;
+    border-radius: .3em;
+    text-align: center;
+    align-content: center;
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-100% - 5em)); }
+}
+
+.card-title {
+    text-align: center;
+    margin: 0;
+    font-size: 0.9rem;
+    padding: 0.3em;
+}
