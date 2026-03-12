@@ -98,7 +98,8 @@ function isToday(date) {
 function renderCalendar() {
     const calendar = document.getElementById("calendar")
     calendar.innerHTML = ""
-    let start = getStartOfWeek(currentDate) //find monday of the week showing in calendar.
+    //find monday of the week showing in calendar.
+    let start = getStartOfWeek(currentDate) 
 
     //sunday = monday + 6
     let end = new Date(start)
@@ -111,7 +112,8 @@ function renderCalendar() {
     //Loop through seven days.
     for (let i = 0; i < 7; i++) {
         let dayDate = new Date(start)
-        dayDate.setDate(start.getDate() + i) //get specific day.
+        //get specific day.
+        dayDate.setDate(start.getDate() + i)
 
         //Highlight today
         let dayDiv = document.createElement("div")
@@ -151,6 +153,7 @@ function renderCalendar() {
                     document.getElementById("updateTheater").value = showing.theater.theaterId
                     document.getElementById("updateDate").value = showing.date
                     document.getElementById("updateTime").value = showing.time
+                    document.getElementById("updateExtraShowing").checked = showing.status === "EXTRASHOWING"
                     document.getElementById("updateShowingForm").style.display = "block"
                 }
 
@@ -190,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const showingData = {
             date: document.getElementById("newDate").value,
             time: document.getElementById("newTime").value + ":00",
-            status: "ACTIVE",
+            status: document.getElementById("extraShowing").checked ? "EXTRASHOWING" : null,
             movie: selectedMovie,
             theater: selectedTheater
         }
@@ -209,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const showingData = {
             date: document.getElementById("updateDate").value,
             time: document.getElementById("updateTime").value,
-            status: "ACTIVE",
+            status: document.getElementById("updateExtraShowing").checked ? "EXTRASHOWING" : null,
             movie: selectedMovie,
             theater: selectedTheater
         }
