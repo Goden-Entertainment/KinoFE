@@ -1,19 +1,4 @@
-/*Movie Grid*/
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.82rem;
-    color: white;
-    line-height: 1.5;
-    background: #0a0a0f;
-    margin: 0;
-    text-align: center;
-}
-
-h1 {
-    font-size: 3rem;
-    letter-spacing: 4px;
-}
-
+/*active movies*/
 .moviesSection {
     padding: 60px 40px;
 }
@@ -24,8 +9,9 @@ h1 {
     gap: 24px;
     margin-top: 40px;
 }
+
 .movieCard {
-    background: #1a1a1f;
+    background: #f0f0f0;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
@@ -52,22 +38,12 @@ h1 {
 
 .movieCard button {
     width: 100%;
-    padding: 10px;
-    background: #e50914;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
     margin-top: auto;
+    background-color: #2A79C3;
+    color: #FFFFFF;
 }
 
-.movieCard button:hover {
-    background: #ff1a1a;
-}
-
-/*Movie carousel/slider*/
+/* Movie carousel/upcoming movies */
 .imageCarousel {
     visibility: hidden;
 }
@@ -86,15 +62,14 @@ h1 {
     align-items: center;
     gap: 5em;
     padding-right: 5em;
-    animation: scroll 100s infinite linear;
+    animation: scroll 30s infinite linear;
 }
 
 .card {
     flex-shrink: 0;
     width: 10em;
     height: 15em;
-    background: grey;
-    font-size: 1.5rem;
+    background: #E6E0E9;
     border-radius: .3em;
     text-align: center;
     align-content: center;

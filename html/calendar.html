@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduling</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/calendar.css">
+
+</head>
+<body>
+<h1>Movie Schedule</h1>
+<div class="controls">
+    <button id="prevBtn" class="btnSecondary">← Prev</button>
+    <span id="weekLabel"></span>
+    <button id="nextBtn" class="btnSecondary">Next →</button>
+</div>
+<div id="calendar"></div>
+
+<!-- create shwoing-->
+<form id="addShowingForm">
+    <h2>Create Showing</h2>
+
+<label>Movie</label>
+<select id="newMovie" required></select>
+
+<label>Theater</label>
+<select id="newTheater" required></select>
+
+<label>Date</label>
+    <input id="newDate" type="date" min="" required>
+
+<label>Time</label>
+<input id="newTime" type="time" required>
+
+<button type="submit" id="createShowingBtn" class="btnPrimary">Create</button>
+</form>
+
+<!--update showing-->
+<form id="updateShowingForm" style="display: none">
+    <h2>Update Showing</h2>
+    <input id="updateShowingId" type="hidden">
+
+    <label>Movie</label>
+    <select id="updateMovie"></select>
+
+    <label>Theater</label>
+    <select id="updateTheater"></select>
+
+    <label>Date</label>
+    <input id="updateDate" type="date">
+
+    <label>Time</label>
+    <input id="updateTime" type="time">
+
+    <button type="button" id="updateShowingBtn" class="btnPrimary">Update</button>
+</form>
+    <script src="../js/calendar.js"></script>
+</body>
+</html>

@@ -1,12 +1,17 @@
-const MOVIEURL = "http://localhost:8080/movie";
+const MOVIEURL = `http://localhost:8080/movie`;
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function showActiveMovies() {
     try {
-        const movies = await fetch(MOVIEURL).then(r => r.json());
-        document.getElementById('movieGrid').innerHTML = movies
-            .filter(m => m.status === 'ACTIVE')
-            .map(movie => `
-                <div class="movieCard">
+        const response = await fetch(MOVIEURL);
+        const movies = await response.json();
+        const list = document.getElementById("movieGrid")
+        const activeMovies = movies.filter(m => m.status === "ACTIVE");
+        
+
+        list.innerHTML = "";
+        activeMovies.forEach(movie => {
+            list.innerHTML += `
+            <div class="movieCard">
                     <div class="moviePoster">
                         <img src="${movie.image}" alt="${movie.title}">
                     </div>
@@ -17,26 +22,46 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <p class="movieText">${movie.description}</p>
                         <button class="buyBtn" onclick="buyTicket(${movie.movieId}, '${movie.title}')">Buy Ticket</button>
                     </div>
+                </div>`;
+        });
+    } catch (error) {
+        console.log("Could not load movie: " + error);
+    }
+}
+
+async function showMoviesComingSoon() {
+    try {
+        const response = await fetch(MOVIEURL);
+        const movies = await response.json();
+        const comingSoon = movies.filter(m => m.status === "COMINGSOON");
+        let list = "";
+
+        if (comingSoon.length === 0) {
+            return;
+        }
+
+        const cards = [...comingSoon, ...comingSoon];
+
+        cards.forEach(movie => {
+            list += `
+                <div class="card">
+                     <img src="${movie.image}" alt="${movie.title}" style="width:100%; height:100%; object-fit:cover; border-radius:.3em;">
+                     <p class="card-title">${movie.title}</p>
                 </div>
-            `).join('');
-
-        const comingSoon = movies.filter(m => m.status === 'COMINGSOON');
-        const cards = [...comingSoon, ...comingSoon].map(m => `
-        <div class="card">
-            <img src="${m.image}" alt="${m.title}" style="width:100%; height:100%; object-fit:cover; border-radius:.3em;">
-            <p class="card-title">${m.title}</p>
-        </div>
-        `).join('');
-
-        document.querySelectorAll('.imageCarousel .group').forEach(g => g.innerHTML = cards);
+                `;
+        });
+        document.querySelectorAll('.imageCarousel .group').forEach(g => g.innerHTML = list);
         document.querySelector('.imageCarousel').classList.add('loaded');
 
     } catch (error) {
-        console.error('Could not load movies:', error);
+        console.error("Could not load movies: " + error);
     }
-});
+}
 
-//TODO: finish function when backend is ready.
+//TODO: finish when ready ticket confirmation.
 function buyTicket(movieId, title) {
     alert('Ticket requested for: ' + title);
 }
+
+showActiveMovies();
+showMoviesComingSoon();

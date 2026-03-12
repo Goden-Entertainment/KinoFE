@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin — Movies</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/adminMovie.css">
+
+</head>
+<body>
+
+<h1>Manage Movies</h1>
+<table id="movieTable">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Age Limit</th>
+    <th>Duration</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<!-- form to create movie-->
+<h2>Create Movie</h2>
+<form id="addMovieForm">
+  <label>Title</label><br>
+  <input id="newTitle" type="text" required><br><br>
+
+  <label>Age Limit</label><br>
+  <input id="newAgeLimit" type="number" required><br><br>
+
+  <label>Duration</label><br>
+  <input id="newDuration" type="number" required><br><br>
+
+  <label>Description</label><br>
+  <input id="newDescription" type="text" required><br><br>
+
+  <label>Status</label><br>
+  <select id="newStatus">
+    <option value="ACTIVE">Active</option>
+    <option value="INACTIVE">Inactive</option>
+    <option value="CANCELLED">cancelled</option>
+    <option value="COMINGSOON">Coming Soon</option>
+    <option value="EXTRASHOWING">Extra Showing</option>
+  </select><br><br>
+
+  <button type="button" id="addMovieBtn" class="btnPrimary">Create</button>
+</form>
+
+<!-- update movie form -->
+<div id="updateMovieFormContainer">
+  <h2>Update</h2>
+  <form id="updateMovieForm">
+    <input id="updateMovieId" type="hidden">
+
+    <label>Title</label><br>
+    <input id="updateTitle" type="text"><br><br>
+
+    <label>Age Limit</label><br>
+    <input id="updateAgeLimit" type="number"><br><br>
+
+    <label>Duration</label><br>
+    <input id="updateDuration" type="number"><br><br>
+
+    <label>Description</label><br>
+    <input id="updateDescription" type="text"><br><br>
+
+    <label>Status</label><br>
+    <select id="updateStatus">
+      <option value="ACTIVE">Active</option>
+      <option value="INACTIVE">Inactive</option>
+    </select><br><br>
+
+    <button type="button" id="updateMovieBtn" class="btnPrimary">Update</button>
+    <button type="button" onclick="document.getElementById('updateMovieFormContainer').style.display='none'">Cancel</button>
+  </form>
+</div>
+
+<script src="../js/adminMovie.js"></script>
+</body>
+</html>
