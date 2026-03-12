@@ -1,8 +1,9 @@
-const MOVIEURL = `http://localhost:8080/movie`;
+const MOVIEURL = `http://localhost:8080`;
 
+//Fetch all movies. show only active movies. (grid)
 async function showActiveMovies() {
     try {
-        const response = await fetch(MOVIEURL);
+        const response = await fetch(MOVIEURL + `/movie`);
         const movies = await response.json();
         const list = document.getElementById("movieGrid")
         const activeMovies = movies.filter(m => m.status === "ACTIVE");
@@ -29,9 +30,10 @@ async function showActiveMovies() {
     }
 }
 
+//Fetch all movies, show only movies that are coming soon. (carousel/slider)
 async function showMoviesComingSoon() {
     try {
-        const response = await fetch(MOVIEURL);
+        const response = await fetch(MOVIEURL + `/movie`);
         const movies = await response.json();
         const comingSoon = movies.filter(m => m.status === "COMINGSOON");
         let list = "";
@@ -40,6 +42,7 @@ async function showMoviesComingSoon() {
             return;
         }
 
+        //Duplicate, to make it look infinite.
         const cards = [...comingSoon, ...comingSoon];
 
         cards.forEach(movie => {

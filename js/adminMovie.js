@@ -1,10 +1,14 @@
+const url = `http://localhost:8080`;
+
+//Fetch all movies
 async function getMovies() {
-    const response = await fetch(`http://localhost:8080/movie`);
+    const response = await fetch(url + `/movie`);
     return await response.json();
 }
 
+//Create a new movie
 async function createMovie(movieData) {
-    const response = await fetch(`http://localhost:8080/movie`, {
+    const response = await fetch(url + `/movie`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -15,8 +19,9 @@ async function createMovie(movieData) {
     return await response.json();
 }
 
+//update movie by id
 async function updateMovie(id, movieData) {
-    const response = await fetch(`http://localhost:8080/movie/${id}`, {
+    const response = await fetch(url + `movie/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -27,8 +32,9 @@ async function updateMovie(id, movieData) {
     return await response.json();
 }
 
+//Delete movie by id
 async function deleteMovie(id) {
-    const response = await fetch(`http://localhost:8080/movie/${id}`, {
+    const response = await fetch(url + `/movie/${id}`, {
         method: "DELETE",
         headers: {
             "Authorization": "Bearer " + sessionStorage.getItem("token")
@@ -37,6 +43,7 @@ async function deleteMovie(id) {
     return response.ok;
 }
 
+//render all movies in table.
 async function loadMovies() {
     const movies = await getMovies();
     const tbody = document.querySelector("#movieTable tbody");
@@ -54,7 +61,8 @@ async function loadMovies() {
                 <button class="editBtn btnSecondary">Edit</button>
                 <button class="deleteBtn btnDelete">Delete</button>
             </td>`
-        
+
+        //when edit is clicked, show update form.
         row.querySelector(".editBtn").onclick = function () {
             document.getElementById("updateMovieId").value = movie.movieId
             document.getElementById("updateTitle").value = movie.title
@@ -64,7 +72,8 @@ async function loadMovies() {
             document.getElementById("updateStatus").value = movie.status
             document.getElementById("updateMovieFormContainer").style.display = "block"
         }
-        
+
+        //when delete is clicked, delete and refresh.
         row.querySelector(".deleteBtn").onclick = async function () {
             await deleteMovie(movie.movieId);
             loadMovies();
@@ -74,6 +83,7 @@ async function loadMovies() {
     });
 }
 
+//create movie form.
 document.getElementById("addMovieBtn").onclick = async function (e) {
     e.preventDefault();
     const movieData = {
@@ -88,6 +98,7 @@ document.getElementById("addMovieBtn").onclick = async function (e) {
     loadMovies();
 }
 
+//Update form.
 document.getElementById("updateMovieBtn").onclick = async function () {
     const id = document.getElementById("updateMovieId").value
     const movieData = {
