@@ -1,0 +1,89 @@
+.controls {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+#weekLabel {
+    margin: 0 12px;
+    font-weight: bold;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: left;
+}
+
+.day {
+    border: 1px solid grey;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dayHeader {
+    background: #f0f0f0;
+    text-align: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.dayHeader .name {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: grey;
+}
+
+.dayHeader .num {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.day.today {
+    border: 2px solid #2A79C3;
+}
+
+.day.today .dayHeader {
+    color: #2A79C3;
+}
+
+.day.today .dayHeader .name {
+    color: #2A79C3;
+}
+
+.showings {
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.showing {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 6px 8px;
+}
+
+.showing .time {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.showing .title {
+    display: block;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.empty {
+    text-align: center;
+    color: grey;
+    padding: 10px 0;
+    font-size: 14px;
+}
