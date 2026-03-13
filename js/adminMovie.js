@@ -118,8 +118,7 @@ document.getElementById("updateMovieBtn").onclick = async function () {
         ageLimit: parseInt(document.getElementById("updateAgeLimit").value),
         duration: parseInt(document.getElementById("updateDuration").value),
         description: document.getElementById("updateDescription").value,
-        status: document.getElementById("updateStatus").value,
-        image: newImage
+        status: document.getElementById("updateStatus").value
     }
     await updateMovie(id, movieData);
     document.getElementById("updateMovieFormContainer").style.display = "none";
