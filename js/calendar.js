@@ -10,15 +10,15 @@ async function getShowings() {
         const movieResponse = await fetch(url + `/movie`);
         movies = await movieResponse.json();
 
-        const showingResponse = await fetch(url +`/showing`);
+        const showingResponse = await fetch(url + `/showing`);
         showings = await showingResponse.json();
 
-        const theaterResponse = await fetch(url + `/theater` );
+        const theaterResponse = await fetch(url + `/theater`);
         theaters = await theaterResponse.json()
 
         fillDropdowns()
         renderCalendar()
-        
+
     } catch (error) {
         console.error("failed to load data: " + error);
     }
@@ -26,7 +26,7 @@ async function getShowings() {
 
 //create a new showing.
 async function createShowing(showingData) {
-    const response = await fetch(url +  `/showing`, {
+    const response = await fetch(url + `/showing`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -89,6 +89,7 @@ function toDateString(date) {
     let d = String(date.getDate()).padStart(2, "0")
     return `${y}-${m}-${d}`
 }
+
 //return true if the date is today.
 function isToday(date) {
     return toDateString(date) === toDateString(new Date())
@@ -99,7 +100,7 @@ function renderCalendar() {
     const calendar = document.getElementById("calendar")
     calendar.innerHTML = ""
     //find monday of the week showing in calendar.
-    let start = getStartOfWeek(currentDate) 
+    let start = getStartOfWeek(currentDate)
 
     //sunday = monday + 6
     let end = new Date(start)
@@ -135,38 +136,45 @@ function renderCalendar() {
         let dateStr = toDateString(dayDate)
         let dayShowings = showings.filter(s => s.date === dateStr)
         dayShowings.sort((a, b) => a.time.localeCompare(b.time))
-        
+
         //Create div for each showing.
-            dayShowings.forEach(showing => {
-                let div = document.createElement("div")
-                div.className = "showing"
-                div.innerHTML = `
+        dayShowings.forEach(showing => {
+            let div = document.createElement("div")
+            div.className = "showing"
+
+            //Checks if it is an extra showing
+            let xLabel = "";
+            if (showing.status === "EXTRASHOWING") {
+                xLabel = `<span class="extraShowingLabel">x</span>`;
+            }
+            div.innerHTML = `
                 <span class="time">${showing.time}</span>
                 <span class="title">${showing.movie.title}</span>
                 <button class="editBtn btnSecondary">Edit</button>
-                <button class="deleteBtn btnDelete">Delete</button>`
+                <button class="deleteBtn btnDelete">Delete</button>
+                ${xLabel}`
 
-                //update form showing data with right data.
-                div.querySelector(".editBtn").onclick = function () {
-                    document.getElementById("updateShowingId").value = showing.showingId
-                    document.getElementById("updateMovie").value = showing.movie.movieId
-                    document.getElementById("updateTheater").value = showing.theater.theaterId
-                    document.getElementById("updateDate").value = showing.date
-                    document.getElementById("updateTime").value = showing.time
-                    document.getElementById("updateExtraShowing").checked = showing.status === "EXTRASHOWING"
-                    document.getElementById("updateShowingForm").style.display = "block"
-                }
+            //update form showing data with right data.
+            div.querySelector(".editBtn").onclick = function () {
+                document.getElementById("updateShowingId").value = showing.showingId
+                document.getElementById("updateMovie").value = showing.movie.movieId
+                document.getElementById("updateTheater").value = showing.theater.theaterId
+                document.getElementById("updateDate").value = showing.date
+                document.getElementById("updateTime").value = showing.time
+                document.getElementById("updateExtraShowing").checked = showing.status === "EXTRASHOWING"
+                document.getElementById("updateShowingForm").style.display = "block"
+            }
 
-                //When delete is clicked, Confirm delete with message.
-                div.querySelector(".deleteBtn").onclick = async function () {
-                    if (confirm("Delete this showing?")) {
-                        await deleteShowing(showing.showingId)
-                        await getShowings()
-                    }
+            //When delete is clicked, Confirm delete with message.
+            div.querySelector(".deleteBtn").onclick = async function () {
+                if (confirm("Delete this showing?")) {
+                    await deleteShowing(showing.showingId)
+                    await getShowings()
                 }
-                showingsDiv.appendChild(div)
-            })
-        
+            }
+            showingsDiv.appendChild(div)
+        })
+
         dayDiv.appendChild(showingsDiv)
         calendar.appendChild(dayDiv)
     }
@@ -189,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const theaterId = parseInt(document.getElementById("newTheater").value)
         const selectedMovie = movies.find(m => m.movieId === movieId)
         const selectedTheater = theaters.find(t => t.theaterId === theaterId)
-        
+
         const showingData = {
             date: document.getElementById("newDate").value,
             time: document.getElementById("newTime").value + ":00",
@@ -208,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const theaterId = parseInt(document.getElementById("updateTheater").value)
         const selectedMovie = movies.find(m => m.movieId === movieId)
         const selectedTheater = theaters.find(t => t.theaterId === theaterId)
-        
+
         const showingData = {
             date: document.getElementById("updateDate").value,
             time: document.getElementById("updateTime").value,
@@ -220,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("updateShowingForm").style.display = "none"
         await getShowings()
     }
-    
+
     renderCalendar();
-    getShowings()
+    getShowings();
 })
