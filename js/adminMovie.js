@@ -124,5 +124,4 @@ document.getElementById("updateMovieBtn").onclick = async function () {
     document.getElementById("updateMovieFormContainer").style.display = "none";
     loadMovies();
 }
-
 loadMovies();
