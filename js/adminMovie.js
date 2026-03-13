@@ -83,6 +83,17 @@ async function loadMovies() {
     });
 }
 
+//Reads image file selected and converts it to a data URL. 
+const input = document.getElementById('img');
+let newImage;
+input.addEventListener('change', () => {
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+        newImage = fileReader.result;
+    };
+    fileReader.readAsDataURL(input.files[0]);
+});
+
 //create movie form.
 document.getElementById("addMovieBtn").onclick = async function (e) {
     e.preventDefault();
@@ -91,7 +102,8 @@ document.getElementById("addMovieBtn").onclick = async function (e) {
         ageLimit: parseInt(document.getElementById("newAgeLimit").value),
         duration: parseInt(document.getElementById("newDuration").value),
         description: document.getElementById("newDescription").value,
-        status: document.getElementById("newStatus").value
+        status: document.getElementById("newStatus").value,
+        image: newImage
     }
     console.log("Sending:", JSON.stringify(movieData))
     await createMovie(movieData);
@@ -106,7 +118,8 @@ document.getElementById("updateMovieBtn").onclick = async function () {
         ageLimit: parseInt(document.getElementById("updateAgeLimit").value),
         duration: parseInt(document.getElementById("updateDuration").value),
         description: document.getElementById("updateDescription").value,
-        status: document.getElementById("updateStatus").value
+        status: document.getElementById("updateStatus").value,
+        image: newImage
     }
     await updateMovie(id, movieData);
     document.getElementById("updateMovieFormContainer").style.display = "none";
