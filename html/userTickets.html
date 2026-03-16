@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tickets – Kino Booking</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <button class="nav-btn" onclick="location.href='movies.html'">Movies</button>
+    <button class="nav-btn" onclick="location.href='showings.html'">Showings</button>
+  </div>
+  <a class="navbar-brand" href="index.html">Kino Booking</a>
+  <div class="navbar-right">
+    <button class="nav-btn nav-btn--danger" id="authBtn">Sign out</button>
+  </div>
+</nav>
+
+<div class="admin-list-page">
+  <h1 class="admin-list-title">Tickets</h1>
+
+  <div class="admin-list-wrap">
+    <div class="admin-list-grid" id="ticketGrid">
+      <p style="color:#888;grid-column:1/-1;text-align:center">Loading tickets…</p>
+    </div>
+    <button class="admin-add-btn" onclick="location.href='movies.html'">Browse Movies</button>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/userTickets.js"></script>
+</body>
+</html>

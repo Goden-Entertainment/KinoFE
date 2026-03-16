@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Movie – Kino Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <button class="nav-btn" onclick="location.href='adminMovie.html'">Movies</button>
+    <button class="nav-btn" onclick="location.href='adminShowings.html'">Showings</button>
+  </div>
+  <a class="navbar-brand" href="index.html">Kino Booking</a>
+  <div class="navbar-right">
+    <button class="nav-btn nav-btn--danger" id="authBtn">Sign out</button>
+  </div>
+</nav>
+
+<div class="form-page">
+  <h1 class="form-page-title" id="pageTitle">Add<br>Movie</h1>
+
+  <div class="form-card">
+    <form id="movieForm">
+      <div class="form-group">
+        <label class="form-label">Movie Name</label>
+        <input class="form-control" type="text" id="title" placeholder="String" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <input class="form-control" type="text" id="description" placeholder="String">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Duration (minutes)</label>
+        <input class="form-control" type="number" id="duration" placeholder="int" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-control" id="status">
+          <option value="ACTIVE">Active</option>
+          <option value="COMINGSOON">Coming Soon</option>
+          <option value="CANCELLED">Cancelled</option>
+          <option value="EXTRASHOWING">Extra Showing</option>
+          <option value="ONGOING">Ongoing</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Age Rating</label>
+        <input class="form-control" type="number" id="ageLimit" placeholder="0 = All ages" min="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Image (URL or upload)</label>
+        <input class="form-control" type="text" id="imageUrl" placeholder="https://…" style="margin-bottom:6px">
+        <input class="form-control" type="file" id="imageFile" accept="image/*">
+      </div>
+
+      <p class="error-msg" id="errorMsg"></p>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit" id="saveBtn">Save</button>
+        <button class="btn btn-danger" type="button" onclick="location.href='adminMovie.html'">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/adminAddMovie.js"></script>
+</body>
+</html>

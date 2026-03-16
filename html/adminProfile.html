@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Profile – Kino Booking</title>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<nav class="navbar">
-    <div class="navbar-left">
-        <button class="nav-btn" onclick="location.href='movies.html'">Movies</button>
-        <button class="nav-btn" onclick="location.href='calendar.html'">Showings</button>
-        <button class="nav-btn">Contact</button>
-    </div>
-    <a class="navbar-brand" href="index.html">Kino Booking</a>
-    <div class="navbar-right">
-        <button class="nav-btn" id="authBtn" onclick="location.href='login.html'">Sign in</button>
-    </div>
-</nav>
-<h1>Hej admiiiin</h1>
+
+<div class="profile-page">
+  <h1 class="profile-title">Admin<br>profile</h1>
+
+  <div class="profile-card">
+    <button class="profile-card-btn" onclick="location.href='adminMovie.html'">Movies</button>
+    <button class="profile-card-btn" onclick="location.href='adminShowings.html'">Showings</button>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script>requireAdmin();</script>
 </body>
 </html>

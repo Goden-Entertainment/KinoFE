@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Showings – Kino Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <button class="nav-btn" onclick="location.href='adminMovie.html'">Movies</button>
+    <button class="nav-btn" onclick="location.href='adminShowings.html'">Showings</button>
+  </div>
+  <a class="navbar-brand" href="index.html">Kino Booking</a>
+  <div class="navbar-right">
+    <button class="nav-btn nav-btn--danger" id="authBtn">Sign out</button>
+  </div>
+</nav>
+
+<div class="admin-showings-page">
+  <h1 class="admin-list-title">Showing</h1>
+
+  <div class="theater-grid" id="theaterGrid">
+    <p style="color:#888">Loading theaters…</p>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script>
+  requireAdmin();
+  initNav();
+
+  // Theater images – placeholders; replace with real images if available
+  const THEATER_IMAGES = {
+    1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/TIFF_Bell_Lightbox.jpg/640px-TIFF_Bell_Lightbox.jpg',
+    2: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/2015_-_Millburn_Avenue_Theater.jpg/640px-2015_-_Millburn_Avenue_Theater.jpg'
+  };
+
+  async function loadTheaters() {
+    const grid = document.getElementById('theaterGrid');
+    try {
+      const theaters = await apiFetch('/theater');
+      if (theaters.length === 0) {
+        grid.innerHTML = '<p style="color:#888">No theaters found.</p>';
+        return;
+      }
+      grid.innerHTML = '';
+      theaters.forEach((t, i) => {
+        const imgSrc = THEATER_IMAGES[t.theaterId] || THEATER_IMAGES[i + 1] || '';
+        const card = document.createElement('div');
+        card.className = 'theater-card';
+        card.onclick = () => location.href = `adminTheater.html?theaterId=${t.theaterId}`;
+        card.innerHTML = `
+          <h2>Theater ${t.name || t.theaterId}</h2>
+          <img src="${imgSrc}" alt="Theater ${t.name}" onerror="this.style.background='#ccc'">
+        `;
+        grid.appendChild(card);
+      });
+    } catch (e) {
+      grid.innerHTML = '<p style="color:#f66">Could not load theaters.</p>';
+      console.error(e);
+    }
+  }
+
+  loadTheaters();
+</script>
+</body>
+</html>

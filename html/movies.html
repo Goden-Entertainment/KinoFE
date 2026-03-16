@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kino Booking</title>
+  <title>Movies – Kino Booking</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/showMovies.css">
+  <link rel="stylesheet" href="../css/dark.css">
 </head>
-<body>
+<body class="dark-page">
 
 <nav class="navbar">
   <div class="navbar-left">
     <button class="nav-btn" onclick="location.href='movies.html'">Movies</button>
+    <button class="nav-btn" onclick="location.href='showings.html'">Showings</button>
     <button class="nav-btn">Contact</button>
   </div>
   <a class="navbar-brand" href="index.html">Kino Booking</a>
@@ -20,20 +21,13 @@
   </div>
 </nav>
 
-<h1 class="kino-title">Kino<br>Booking</h1>
+<h1 class="page-heading">Movies</h1>
 
-<!-- Coming soon carousel (hidden until movies load) -->
-<div class="imageCarousel" id="carousel">
-  <div class="group" id="carouselGroup1"></div>
-  <div aria-hidden="true" class="group" id="carouselGroup2"></div>
+<div class="dark-movie-grid" id="movieGrid">
+  <p style="color:#888;text-align:center;grid-column:1/-1">Loading movies…</p>
 </div>
 
-<!-- Active movies strip -->
-<section class="home-movies-section">
-  <div class="home-movie-strip" id="homeMovieStrip"></div>
-</section>
-
 <script src="../js/api.js"></script>
-<script src="../js/showMovies.js"></script>
+<script src="../js/movies.js"></script>
 </body>
 </html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theater – Kino Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-left">
+    <button class="nav-btn" onclick="location.href='adminMovie.html'">Movies</button>
+    <button class="nav-btn" onclick="location.href='adminShowings.html'">Showings</button>
+  </div>
+  <a class="navbar-brand" href="index.html">Kino Booking</a>
+  <div class="navbar-right">
+    <button class="nav-btn nav-btn--danger" id="authBtn">Sign out</button>
+  </div>
+</nav>
+
+<div class="theater-cal-page">
+  <h1 class="admin-list-title" id="theaterTitle">Theater</h1>
+
+  <!-- Month calendar -->
+  <div class="month-calendar">
+    <div class="cal-header">
+      <button class="cal-nav-btn" id="prevMonth">‹</button>
+      <div class="cal-selects">
+        <select id="calMonth"></select>
+        <select id="calYear"></select>
+      </div>
+      <button class="cal-nav-btn" id="nextMonth">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+
+  <!-- Showings for selected date -->
+  <div class="cal-showings-panel" id="showingsPanel" style="display:none">
+    <h3 id="selectedDateLabel" style="color:#333;text-align:left"></h3>
+    <div id="showingsList"></div>
+
+    <!-- Add showing form -->
+    <div class="add-showing-form" id="addShowingForm" style="display:none">
+      <h3>Add Showing</h3>
+      <div class="form-group">
+        <label class="form-label">Movie</label>
+        <select class="form-control" id="newShowingMovie"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Time</label>
+        <input class="form-control" type="time" id="newShowingTime">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-control" id="newShowingStatus">
+          <option value="ACTIVE">Active</option>
+          <option value="EXTRASHOWING">Extra Showing</option>
+        </select>
+      </div>
+      <p class="error-msg" id="addShowingError"></p>
+      <button class="btn btn-blue" type="button" id="saveShowingBtn" style="margin:0 4px 0 0">Save</button>
+      <button class="btn btn-danger" type="button" id="cancelShowingBtn" style="margin:0">Cancel</button>
+    </div>
+
+    <button class="admin-add-btn" id="addShowingToggle" style="margin-top:12px">+ Add Showing</button>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/adminTheater.js"></script>
+</body>
+</html>

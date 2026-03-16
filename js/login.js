@@ -1,31 +1,33 @@
-var username;
-var password;
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const errorMsg = document.getElementById('errorMsg');
+  errorMsg.textContent = '';
 
-document.getElementById("KinoFE").addEventListener("submit", function (event) {
-    event.preventDefault();
+  try {
+    const res = await fetch(`${API}/login`, {
+      method: 'POST',
+      credentials: 'include',
+      body: new URLSearchParams({ username, password })
+    });
 
-    username = document.getElementById("username").value;
-    password = document.getElementById("password").value;
+    if (!res.ok) {
+      errorMsg.textContent = 'Invalid username or password';
+      return;
+    }
 
-    //
+    const user = await res.json();
+    sessionStorage.setItem('currentUser', JSON.stringify(user));
 
-    login();
+    // Temporary admin detection – replace when backend adds role support
+    if (user.username === 'August') {
+      sessionStorage.setItem('isAdmin', 'true');
+      location.href = 'adminProfile.html';
+    } else {
+      location.href = 'userProfile.html';
+    }
+  } catch (err) {
+    errorMsg.textContent = 'Could not connect to server. Please try again.';
+  }
 });
-
-function login() {
-    fetch("http://localhost:8080/users/login", {
-        method: "POST",
-        body: new URLSearchParams({
-            username: username,
-            password: password
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.username === "August" && data.password === "Admin") {
-                window.location.href = "adminProfile.html";
-            } else {
-                window.location.href = "userProfile.html"
-            }
-        });
-}

@@ -1,0 +1,232 @@
+/* Dark-theme pages (Movies, Showings) */
+body.dark-page {
+    background: #0f0f0f;
+    color: #fff;
+}
+
+/* ── Dark movies grid ───────────────────────────────── */
+.dark-page .page-heading {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    padding: 40px 20px 20px;
+    margin: 0;
+}
+
+.dark-movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px 40px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dark-movie-card {
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.dark-movie-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    background: #222;
+    display: block;
+}
+
+.dark-movie-card .card-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    text-align: center;
+}
+
+.dark-movie-card .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.dark-movie-card .card-meta {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin: 0 0 4px;
+}
+
+.dark-movie-card .card-desc {
+    font-size: 0.75rem;
+    color: #999;
+    line-height: 1.4;
+    flex: 1;
+    margin: 0 0 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.dark-movie-card .buy-btn {
+    width: 100%;
+    padding: 10px;
+    background: #EC221F;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin: 0;
+}
+.dark-movie-card .buy-btn:hover { background: #c91a17; }
+
+/* ── Dark showings calendar ─────────────────────────── */
+.schedule-header {
+    text-align: center;
+    padding: 30px 20px 20px;
+}
+
+.schedule-header h1 {
+    color: #fff;
+    margin: 0 0 16px;
+    font-size: 2rem;
+}
+
+.week-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.week-nav-btn {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 6px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+    margin: 0;
+}
+
+.week-range {
+    color: #fff;
+    font-size: 0.95rem;
+    min-width: 140px;
+    text-align: center;
+}
+
+.week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    padding: 0 16px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.day-col {
+    background: #1a1a1a;
+    border-radius: 8px;
+    min-height: 200px;
+    padding: 10px 6px;
+}
+
+.day-col.today {
+    outline: 2px solid #4caf50;
+    outline-offset: -2px;
+}
+
+.day-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.day-name {
+    font-size: 0.75rem;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+.day-num {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+}
+.today .day-num { color: #4caf50; }
+
+.showing-chip {
+    background: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.showing-chip:hover { background: #3a3a3a; }
+
+.chip-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.chip-movie {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Movie info panel (below calendar) */
+.movie-info-panel {
+    display: none;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: row;
+}
+.movie-info-panel.visible { display: flex; }
+
+.panel-poster {
+    width: 160px;
+    flex-shrink: 0;
+    object-fit: cover;
+    background: #222;
+}
+
+.panel-details {
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.panel-title { font-size: 1.2rem; font-weight: 700; margin: 0; }
+.panel-meta  { font-size: 0.85rem; color: #aaa; margin: 0; }
+.panel-desc  { font-size: 0.85rem; color: #ccc; margin: 0; line-height: 1.5; }
+
+.panel-buy-btn {
+    background: #EC221F;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin: 8px 0 0;
+    align-self: flex-start;
+}
+.panel-buy-btn:hover { background: #c91a17; }

@@ -1,25 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinema Seats</title>
-    <link rel="stylesheet" href="../css/seating.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Seats – Kino Booking</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/seating.css">
 </head>
-<body>
-<nav class="navbar">
-    <div class="navbar-left">
-        <button class="nav-btn" onclick="location.href='movies.html'">Movies</button>
-        <button class="nav-btn" onclick="location.href='calendar.html'">Showings</button>
-        <button class="nav-btn">Contact</button>
-    </div>
-    <a class="navbar-brand" href="index.html">Kino Booking</a>
-    <div class="navbar-right">
-        <button class="nav-btn" id="authBtn" onclick="location.href='login.html'">Sign in</button>
-    </div>
-</nav>
-  <form></form>
+<body class="seating-page">
 
-  <script src="../js/seating.js"></script>
+<nav class="navbar">
+  <div class="navbar-left">
+    <button class="nav-btn" onclick="location.href='movies.html'">Movies</button>
+    <button class="nav-btn" onclick="location.href='showings.html'">Showings</button>
+    <button class="nav-btn">Contact</button>
+  </div>
+  <a class="navbar-brand" href="index.html">Kino Booking</a>
+  <div class="navbar-right">
+    <button class="nav-btn" id="authBtn">Sign in</button>
+  </div>
+</nav>
+
+<!-- Showing info (populated by JS) -->
+<div class="showing-info-bar" id="showingInfoBar">
+  <div class="movie-title-bar" id="infoTitle">Loading…</div>
+  <div id="infoMeta"></div>
+</div>
+
+<!-- Seat grid -->
+<div class="seat-section">
+  <div class="cinema-screen">SCREEN</div>
+  <div class="seat-grid" id="seatGrid"></div>
+  <div class="seat-legend">
+    <span><span class="legend-dot" style="background:var(--seat-available)"></span>Available</span>
+    <span><span class="legend-dot" style="background:var(--seat-selected)"></span>Selected</span>
+    <span><span class="legend-dot" style="background:var(--seat-taken)"></span>Taken</span>
+  </div>
+</div>
+
+<!-- Order panel (shown after seat selection) -->
+<div class="order-panel" id="orderPanel">
+  <div class="order-info">
+    <div class="order-movie-row">
+      <img class="order-poster" id="orderPoster" src="" alt="">
+      <div class="order-movie-details">
+        <p class="order-movie-title" id="orderTitle"></p>
+        <p class="order-movie-meta" id="orderTheater"></p>
+        <p class="order-movie-meta" id="orderTime"></p>
+      </div>
+    </div>
+    <div class="seat-chips" id="seatChips"></div>
+    <div class="order-summary">
+      <div class="order-line">
+        <span id="ticketCountLabel">0 tickets</span>
+        <span id="ticketPrice">0 kr.</span>
+      </div>
+      <div class="order-line order-total">
+        <span>Total</span>
+        <span id="orderTotal">0 kr.</span>
+      </div>
+    </div>
+    <button class="proceed-btn" id="proceedBtn">Videre →</button>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="checkout-modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-row">
+      <div class="modal-field">
+        <label>Fornavn <span class="required">*</span></label>
+        <input type="text" id="firstName" placeholder="Dit fornavn" required>
+      </div>
+      <div class="modal-field">
+        <label>Efternavn <span class="required">*</span></label>
+        <input type="text" id="lastName" placeholder="Dit efternavn" required>
+      </div>
+    </div>
+    <div class="modal-field">
+      <label>E-mail <span class="required">*</span></label>
+      <input type="email" id="email" placeholder="Din email" required>
+    </div>
+    <div class="modal-field">
+      <label>Bekræft E-mail <span class="required">*</span></label>
+      <input type="email" id="emailConfirm" placeholder="Din email" required>
+    </div>
+    <div class="modal-field">
+      <label>Telefon <span class="required">*</span></label>
+      <div class="phone-row">
+        <select id="phoneCode">
+          <option value="+45">+45</option>
+          <option value="+46">+46</option>
+          <option value="+47">+47</option>
+          <option value="+44">+44</option>
+          <option value="+1">+1</option>
+        </select>
+        <input type="tel" id="phoneNumber" placeholder="">
+      </div>
+    </div>
+    <p class="error-msg" id="checkoutError"></p>
+    <button class="modal-submit-btn" id="submitOrderBtn">Videre</button>
+  </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/seating.js"></script>
 </body>
 </html>
