@@ -11,7 +11,7 @@
 }
 
 .movieCard {
-    background: #f0f0f0;
+    background: #5B5959FF;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
@@ -62,7 +62,7 @@
     align-items: center;
     gap: 5em;
     padding-right: 5em;
-    animation: scroll 30s infinite linear;
+    animation: scroll 100s infinite linear;
 }
 
 .card {
@@ -71,8 +71,9 @@
     height: 15em;
     background: #E6E0E9;
     border-radius: .3em;
-    text-align: center;
-    align-content: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 @keyframes scroll {
