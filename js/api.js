@@ -1,4 +1,4 @@
-const API = 'http://localhost:8080';
+const API = '/api';
 
 function currentUser() {
   return JSON.parse(sessionStorage.getItem('currentUser') || 'null');
