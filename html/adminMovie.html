@@ -27,25 +27,29 @@
 <!-- form to create movie-->
 <h2>Create Movie</h2>
 <form id="addMovieForm">
-  <label>Title</label>
-  <input id="newTitle" type="text" required>
+  <label>Title</label><br>
+  <input id="newTitle" type="text" required><br><br>
 
-  <label>Age Limit</label>
-  <input id="newAgeLimit" type="number" required>
+  <label>Age Limit</label><br>
+  <input id="newAgeLimit" type="number" required><br><br>
 
-  <label>Duration</label>
-  <input id="newDuration" type="number" required>
+  <label>Duration</label><br>
+  <input id="newDuration" type="number" required><br><br>
 
-  <label>Description</label>
-  <input id="newDescription" type="text" required>
+  <label>Description</label><br>
+  <input id="newDescription" type="text" required><br><br>
 
-  <label>Status</label>
+  <label>Status</label><br>
   <select id="newStatus">
     <option value="ACTIVE">Active</option>
     <option value="INACTIVE">Inactive</option>
     <option value="CANCELLED">cancelled</option>
     <option value="COMINGSOON">Coming Soon</option>
-  </select>
+    <option value="EXTRASHOWING">Extra Showing</option>
+  </select><br><br>
+
+  <label>Movie poster</label>
+  <input type="file" name="img" id="img">
 
   <button type="button" id="addMovieBtn" class="btnPrimary">Create</button>
 </form>
@@ -56,24 +60,23 @@
   <form id="updateMovieForm">
     <input id="updateMovieId" type="hidden">
 
-    <label>Title</label>
-    <input id="updateTitle" type="text">
+    <label>Title</label><br>
+    <input id="updateTitle" type="text"><br><br>
 
-    <label>Age Limit</label>
-    <input id="updateAgeLimit" type="number">
+    <label>Age Limit</label><br>
+    <input id="updateAgeLimit" type="number"><br><br>
 
-    <label>Duration</label>
-    <input id="updateDuration" type="number">
+    <label>Duration</label><br>
+    <input id="updateDuration" type="number"><br><br>
 
-    <label>Description</label>
-    <input id="updateDescription" type="text">
+    <label>Description</label><br>
+    <input id="updateDescription" type="text"><br><br>
 
-    <label>Status</label>
+    <label>Status</label><br>
     <select id="updateStatus">
       <option value="ACTIVE">Active</option>
       <option value="INACTIVE">Inactive</option>
-    </select>
-
+    </select><br><br>
     <button type="button" id="updateMovieBtn" class="btnPrimary">Update</button>
     <button type="button" onclick="document.getElementById('updateMovieFormContainer').style.display='none'">Cancel</button>
   </form>
