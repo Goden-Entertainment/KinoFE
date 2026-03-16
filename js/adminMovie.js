@@ -1,4 +1,4 @@
-const url = `http://localhost:8080`;
+const url = `http://51.120.3.91:8080`;
 
 //Fetch all movies
 async function getMovies() {

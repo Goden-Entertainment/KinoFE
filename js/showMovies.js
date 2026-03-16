@@ -1,4 +1,4 @@
-const MOVIEURL = `http://localhost:8080`;
+const MOVIEURL = `http://51.120.3.91:8080`;
 
 //Fetch all movies. show only active movies. (grid)
 async function showActiveMovies() {

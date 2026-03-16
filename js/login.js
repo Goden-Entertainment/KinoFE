@@ -13,7 +13,7 @@ document.getElementById("KinoFE").addEventListener("submit", function (event) {
 });
 
 function login() {
-    fetch("http://localhost:8080/users/login", {
+    fetch(`${API_URL}/users/login`, {
         method: "POST",
         body: new URLSearchParams({
             username: username,
