@@ -1,10 +1,10 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #FFFFFF;
-    color: #000000;
-    text-align: center;
+    background-color: #000000;
+    color: #FFFFFF;
     margin: 0;
     padding: 20px;
+    text-align: center;
 }
 
 h1 {
@@ -22,33 +22,3 @@ button {
 .btnPrimary   { background-color: #2A79C3; color: #FFFFFF; }
 .btnDelete    { background-color: #EC221F; color: #FFFFFF; }
 .btnSecondary { background-color: #E6E0E9; color: #000000; }
-
-form {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
-    margin-bottom: 24px;
-    background-color: #f0f0f0;
-    border-radius: 6px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 32px;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 8px 12px;
-    text-align: left;
-}
-
-th {
-    background-color: #f0f0f0;
-}
-
-tr:hover {
-    background-color: #f9f9f9;
-}

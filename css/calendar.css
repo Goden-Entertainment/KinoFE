@@ -6,11 +6,6 @@
     gap: 12px;
 }
 
-#weekLabel {
-    margin: 0 12px;
-    font-weight: bold;
-}
-
 #calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -25,35 +20,23 @@
 }
 
 .dayHeader {
-    background: #f0f0f0;
+    background: #5b5959;
     text-align: center;
     padding: 8px 0;
-    border-bottom: 1px solid #ccc;
 }
 
-.dayHeader .name {
-    display: block;
-    font-size: 11px;
+.dayHeader .name  .num{
     text-transform: uppercase;
-    color: grey;
+    color: #f6f1f1;
 }
 
 .dayHeader .num {
     display: block;
-    font-size: 22px;
-    font-weight: bold;
+    color: #cbc5c5;
 }
 
 .day.today {
-    border: 2px solid #2A79C3;
-}
-
-.day.today .dayHeader {
-    color: #2A79C3;
-}
-
-.day.today .dayHeader .name {
-    color: #2A79C3;
+    border: 2px solid #1c9146;
 }
 
 .showings {
@@ -81,12 +64,6 @@
     margin-top: 2px;
 }
 
-.empty {
-    text-align: center;
-    color: grey;
-    padding: 10px 0;
-    font-size: 14px;
-}
 .extraShowingLabel {
         color: #2A79C3;
         margin-left: 10px;

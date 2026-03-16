@@ -4,61 +4,97 @@ let movies = []
 let showings = []
 let theaters = []
 
-//Fetch movies, showings and theaters.
-async function getShowings() {
+//fetch Theater and Movie
+async function GetTheaterAndMovie() {
     try {
         const movieResponse = await fetch(url + `/movie`);
+        if (!movieResponse.ok) {
+            console.log("Failed to fetch movies.");
+            return;
+        }
         movies = await movieResponse.json();
 
-        const showingResponse = await fetch(url + `/showing`);
-        showings = await showingResponse.json();
-
         const theaterResponse = await fetch(url + `/theater`);
-        theaters = await theaterResponse.json()
-
-        fillDropdowns()
-        renderCalendar()
-
+        if (!theaterResponse.ok) {
+            console.log("Failed to fetch theaters.");
+            return;
+        }
+        theaters = await theaterResponse.json();
+        fillDropdowns();
     } catch (error) {
-        console.error("failed to load data: " + error);
+        console.error("Failed to load reference data: " + error);
+    }
+}
+
+//Fetch showings.
+async function getShowings() {
+    try {
+        const showingResponse = await fetch(url + `/showing`);
+        if (!showingResponse.ok) {
+            console.log("Failed to fetch showings.");
+            return;
+        }
+        showings = await showingResponse.json();
+        renderCalendar();
+    } catch (error) {
+        console.error("Failed to load showings: " + error);
     }
 }
 
 //create a new showing.
 async function createShowing(showingData) {
-    const response = await fetch(url + `/showing`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + sessionStorage.getItem("token")
-        },
-        body: JSON.stringify(showingData)
-    });
-    return await response.json();
+    try {
+        const response = await fetch(url + `/showing`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(showingData)
+        });
+        if (!response.ok) {
+            console.log("Failed to create showing.");
+            return;
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("failed to create showing: " + error);
+    }
 }
 
 //Update existing showing by id.
 async function updateShowing(id, showingData) {
-    const response = await fetch(url + `/showing/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + sessionStorage.getItem("token")
-        },
-        body: JSON.stringify(showingData)
-    });
-    return await response.json();
+    try {
+        const response = await fetch(url + `/showing/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(showingData)
+        });
+        if (!response.ok) {
+            const errorBody = await response.text()
+            console.log("Failed to update showing:", errorBody)
+            return;
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("failed to update showing: " + error);
+    }
 }
-
 //Delete showing by id.
 async function deleteShowing(id) {
-    const response = await fetch(url + `/showing/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Authorization": "Bearer " + sessionStorage.getItem("token")
+    try {
+        const response = await fetch(url + `/showing/${id}`, {
+            method: "DELETE",
+        });
+        if (!response.ok) {
+            console.log("Failed to delete showing.");
+            return;
         }
-    });
-    return response.ok;
+        return response.json();
+    } catch (error) {
+        console.error("failed to delete showing: " + error);
+    }
 }
 
 //Form for update and create.
@@ -73,6 +109,7 @@ function fillDropdowns() {
     document.getElementById("updateTheater").innerHTML = theaterOptions
 }
 
+//Calendar
 //Return monday.
 function getStartOfWeek(date) {
     let d = new Date(date)
@@ -95,92 +132,90 @@ function isToday(date) {
     return toDateString(date) === toDateString(new Date())
 }
 
-//weekly calendar view. sort each day by time + edit and delete buttons.
-function renderCalendar() {
+//Sets the week label and returns the start date.
+function initCalendar() {
     const calendar = document.getElementById("calendar")
     calendar.innerHTML = ""
-    //find monday of the week showing in calendar.
     let start = getStartOfWeek(currentDate)
-
-    //sunday = monday + 6
     let end = new Date(start)
     end.setDate(start.getDate() + 6)
-
-    //display the week label at the top of calendar.
     document.getElementById("weekLabel").innerText =
         start.toDateString().slice(4, 10) + " – " + end.toDateString().slice(4, 10)
+    return start
+}
 
-    //Loop through seven days.
+//creates a single showing with edit and delete buttons.
+function createShowingDiv(showing) {
+    let div = document.createElement("div")
+    div.className = "showing"
+
+    let xLabel = showing.status === "EXTRASHOWING"
+        ? `<span class="extraShowingLabel">x</span>`
+        : ""
+
+    div.innerHTML = `
+        <span class="time">${showing.time}</span>
+        <span class="title">${showing.movie?.title ?? "No movie"}</span>
+        <button class="editBtn btnSecondary">Edit</button>
+        <button class="deleteBtn btnDelete">Delete</button>
+        ${xLabel}`
+
+    div.querySelector(".editBtn").onclick = function () {
+        document.getElementById("updateShowingId").value = showing.showingId
+        document.getElementById("updateMovie").value = showing.movie?.movieId ?? ""
+        document.getElementById("updateTheater").value = showing.theater.theaterId
+        document.getElementById("updateDate").value = showing.date
+        document.getElementById("updateTime").value = showing.time
+        document.getElementById("updateExtraShowing").checked = showing.status === "EXTRASHOWING"
+        document.getElementById("updateShowingForm").style.display = "block"
+    }
+
+    div.querySelector(".deleteBtn").onclick = async function () {
+        if (confirm("Delete this showing?")) {
+            await deleteShowing(showing.showingId)
+            await getShowings()
+        }
+    }
+    return div
+}
+
+//creates a single day column with its showings.
+function createDayDiv(dayDate) {
+    let dayDiv = document.createElement("div")
+    dayDiv.className = "day" + (isToday(dayDate) ? " today" : "")
+
+    let header = document.createElement("div")
+    header.className = "dayHeader"
+    header.innerHTML =
+        `<span class="name">${dayDate.toDateString().slice(0, 3)}</span>
+         <span class="num">${dayDate.getDate()}</span>`
+    dayDiv.appendChild(header)
+
+    let showingsDiv = document.createElement("div")
+    showingsDiv.className = "showings"
+
+    let dateStr = toDateString(dayDate)
+    let dayShowings = showings.filter(s => s.date === dateStr && s.theater)
+    dayShowings.sort((a, b) => a.time.localeCompare(b.time))
+    dayShowings.forEach(showing => showingsDiv.appendChild(createShowingDiv(showing)))
+
+    dayDiv.appendChild(showingsDiv)
+    return dayDiv
+}
+
+//show the calendar.
+function renderCalendar() {
+    let start = initCalendar()
+    const calendar = document.getElementById("calendar")
     for (let i = 0; i < 7; i++) {
         let dayDate = new Date(start)
-        //get specific day.
         dayDate.setDate(start.getDate() + i)
-
-        //Highlight today
-        let dayDiv = document.createElement("div")
-        dayDiv.className = "day" + (isToday(dayDate) ? " today" : "")
-
-        //Show name for each day
-        let header = document.createElement("div")
-        header.className = "dayHeader"
-        header.innerHTML =
-            `<span class="name">${dayDate.toDateString().slice(0, 3)}</span>
-             <span class="num">${dayDate.getDate()}</span>`
-        dayDiv.appendChild(header)
-
-        //create container for a day
-        let showingsDiv = document.createElement("div")
-        showingsDiv.className = "showings"
-
-        //matches days with this day sorted by time.
-        let dateStr = toDateString(dayDate)
-        let dayShowings = showings.filter(s => s.date === dateStr)
-        dayShowings.sort((a, b) => a.time.localeCompare(b.time))
-
-        //Create div for each showing.
-        dayShowings.forEach(showing => {
-            let div = document.createElement("div")
-            div.className = "showing"
-
-            //Checks if it is an extra showing
-            let xLabel = "";
-            if (showing.status === "EXTRASHOWING") {
-                xLabel = `<span class="extraShowingLabel">x</span>`;
-            }
-            div.innerHTML = `
-                <span class="time">${showing.time}</span>
-                <span class="title">${showing.movie.title}</span>
-                <button class="editBtn btnSecondary">Edit</button>
-                <button class="deleteBtn btnDelete">Delete</button>
-                ${xLabel}`
-
-            //update form showing data with right data.
-            div.querySelector(".editBtn").onclick = function () {
-                document.getElementById("updateShowingId").value = showing.showingId
-                document.getElementById("updateMovie").value = showing.movie.movieId
-                document.getElementById("updateTheater").value = showing.theater.theaterId
-                document.getElementById("updateDate").value = showing.date
-                document.getElementById("updateTime").value = showing.time
-                document.getElementById("updateExtraShowing").checked = showing.status === "EXTRASHOWING"
-                document.getElementById("updateShowingForm").style.display = "block"
-            }
-
-            //When delete is clicked, Confirm delete with message.
-            div.querySelector(".deleteBtn").onclick = async function () {
-                if (confirm("Delete this showing?")) {
-                    await deleteShowing(showing.showingId)
-                    await getShowings()
-                }
-            }
-            showingsDiv.appendChild(div)
-        })
-
-        dayDiv.appendChild(showingsDiv)
-        calendar.appendChild(dayDiv)
+        calendar.appendChild(createDayDiv(dayDate))
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+//Buttons
+document.addEventListener("DOMContentLoaded", async function () {
     //navigate to next week.
     document.getElementById("nextBtn").onclick = function () {
         currentDate.setDate(currentDate.getDate() + 7);
@@ -192,7 +227,8 @@ document.addEventListener("DOMContentLoaded", function () {
         renderCalendar();
     }
     //Create new showings.
-    document.getElementById("createShowingBtn").onclick = async function () {
+    document.getElementById("createShowingBtn").onclick = async function (event) {
+        event.preventDefault();
         const movieId = parseInt(document.getElementById("newMovie").value)
         const theaterId = parseInt(document.getElementById("newTheater").value)
         const selectedMovie = movies.find(m => m.movieId === movieId)
@@ -200,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const showingData = {
             date: document.getElementById("newDate").value,
-            time: document.getElementById("newTime").value + ":00",
+            time: document.getElementById("newTime").value,
             status: document.getElementById("extraShowing").checked ? "EXTRASHOWING" : null,
             movie: selectedMovie,
             theater: selectedTheater
@@ -228,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("updateShowingForm").style.display = "none"
         await getShowings()
     }
-
-    renderCalendar();
-    getShowings();
-})
+    
+    await GetTheaterAndMovie();
+    await getShowings();
+});

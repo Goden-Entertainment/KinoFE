@@ -2,50 +2,76 @@ const url = `http://localhost:8080`;
 
 //Fetch all movies
 async function getMovies() {
-    const response = await fetch(url + `/movie`);
-    return await response.json();
+    try {
+        const response = await fetch(url + `/movie`);
+        if (!response.ok) {
+            console.log(response);
+            return;
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 //Create a new movie
 async function createMovie(movieData) {
-    const response = await fetch(url + `/movie`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + sessionStorage.getItem("token")
-        },
-        body: JSON.stringify(movieData)
-    });
-    return await response.json();
+    try {
+        const response = await fetch(url + `/movie`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(movieData)
+        });
+        if (!response.ok) {
+            console.log(response);
+            return;
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 //update movie by id
 async function updateMovie(id, movieData) {
-    const response = await fetch(url + `movie/${id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + sessionStorage.getItem("token")
-        },
-        body: JSON.stringify(movieData)
-    });
-    return await response.json();
+    try {
+        const response = await fetch(url + `/movie/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(movieData)
+        });
+        if (!response.ok) {
+            console.log(response);
+            return;
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 //Delete movie by id
 async function deleteMovie(id) {
-    const response = await fetch(url + `/movie/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Authorization": "Bearer " + sessionStorage.getItem("token")
+    try {
+        const response = await fetch(url + `/movie/${id}`, {
+            method: "DELETE"
+        });
+        if (!response.ok) {
+            console.log("Could not delete movie with id " + id);
         }
-    });
-    return response.ok;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 //render all movies in table.
 async function loadMovies() {
     const movies = await getMovies();
+    if (!movies) return;
     const tbody = document.querySelector("#movieTable tbody");
     tbody.innerHTML = "";
 
@@ -61,7 +87,7 @@ async function loadMovies() {
                 <button class="editBtn btnSecondary">Edit</button>
                 <button class="deleteBtn btnDelete">Delete</button>
             </td>`
-
+        
         //when edit is clicked, show update form.
         row.querySelector(".editBtn").onclick = function () {
             document.getElementById("updateMovieId").value = movie.movieId
@@ -82,6 +108,7 @@ async function loadMovies() {
         tbody.appendChild(row);
     });
 }
+
 
 //Reads image file selected and converts it to a data URL. 
 const input = document.getElementById('img');
