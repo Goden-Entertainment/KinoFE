@@ -1,3 +1,31 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #000;
+    padding: 0 16px;
+    height: 56px;
+}
+.navbar-brand {
+    color: #2A79C3;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-decoration: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.navbar-left, .navbar-right { display: flex; gap: 4px; }
+.nav-btn {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 6px 16px;
+    cursor: pointer;
+}
+/* Signed-in state: swap Sign in → Sign out (red) */
+.nav-btn--danger { background: #EC221F; color: #fff; border-color: #EC221F; }
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #000000;

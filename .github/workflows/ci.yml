@@ -2,7 +2,7 @@ name: Build and Push KinoFE
 
 on:
   push:
-    branches: [ dev, prod, docker-setup ]
+    branches: [ dev, prod, docker-setup , jack]
 
 jobs:
   build-and-push:
