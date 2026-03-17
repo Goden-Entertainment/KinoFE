@@ -1,3 +1,4 @@
+/* ── Navbar ─────────────────────────────────────── */
 .navbar {
     display: flex;
     align-items: center;
@@ -5,6 +6,7 @@
     background: #000;
     padding: 0 16px;
     height: 56px;
+    position: relative;
 }
 .navbar-brand {
     color: #2A79C3;
@@ -22,22 +24,24 @@
     border-radius: 20px;
     padding: 6px 16px;
     cursor: pointer;
+    margin: 0;
+    font-size: 0.875rem;
+    color: #111;
 }
-/* Signed-in state: swap Sign in → Sign out (red) */
+.nav-btn:hover { background: #e8e8e8; }
 .nav-btn--danger { background: #EC221F; color: #fff; border-color: #EC221F; }
+.nav-btn--danger:hover { background: #c91a17; }
 
+/* ── Reset & base ───────────────────────────────── */
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #000000;
-    color: #FFFFFF;
     margin: 0;
-    padding: 20px;
-    text-align: center;
+    padding: 0;
+    background: #fff;
+    color: #111;
 }
 
-h1 {
-    color: #2A79C3;
-}
+h1 { color: #2A79C3; }
 
 button {
     cursor: pointer;
@@ -50,3 +54,145 @@ button {
 .btnPrimary   { background-color: #2A79C3; color: #FFFFFF; }
 .btnDelete    { background-color: #EC221F; color: #FFFFFF; }
 .btnSecondary { background-color: #E6E0E9; color: #000000; }
+
+/* ── Login page ─────────────────────────────────── */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    position: relative;
+    background: #fff;
+}
+
+.login-cancel-top {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #EC221F;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.login-logo {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 900;
+    color: #2A79C3;
+    text-align: center;
+    line-height: 1;
+    margin: 0 0 40px;
+}
+
+.form-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 32px;
+    width: 90%;
+    max-width: 440px;
+    box-sizing: border-box;
+}
+
+.form-group { margin-bottom: 20px; }
+
+.form-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    color: #333;
+    background: #fff;
+}
+
+.form-control::placeholder { color: #bbb; }
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0;
+}
+
+.btn-primary { background: #d0d0d0; color: #333; }
+.btn-primary:hover { background: #bbb; }
+.btn-danger { background: #EC221F; color: #fff; }
+.btn-danger:hover { background: #c91a17; }
+
+.error-msg {
+    color: #EC221F;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 8px;
+    min-height: 1.2em;
+}
+
+/* ── Profile pages ──────────────────────────────── */
+.profile-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    background: #fff;
+}
+
+.profile-title {
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 900;
+    color: #2A79C3;
+    text-align: center;
+    line-height: 1;
+    margin: 0 0 60px;
+}
+
+.profile-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 32px;
+    width: 90%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.profile-card-btn {
+    width: 100%;
+    padding: 12px;
+    background: #d0d0d0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0;
+    text-align: center;
+}
+
+.profile-card-btn:hover { background: #bbb; }
