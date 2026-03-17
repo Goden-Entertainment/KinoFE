@@ -81,11 +81,11 @@ button {
 }
 
 .login-logo {
-    font-size: clamp(3rem, 10vw, 5rem);
+    font-size: clamp(4rem, 12vw, 7rem);
     font-weight: 900;
     color: #2A79C3;
     text-align: center;
-    line-height: 1;
+    line-height: 0.95;
     margin: 0 0 40px;
 }
 
@@ -162,12 +162,31 @@ button {
 }
 
 .profile-title {
-    font-size: clamp(3rem, 10vw, 5rem);
+    font-size: clamp(4rem, 12vw, 7rem);
     font-weight: 900;
     color: #2A79C3;
     text-align: center;
-    line-height: 1;
+    line-height: 0.95;
     margin: 0 0 60px;
+}
+
+/* ── Form pages (Add/Edit Movie, etc.) ──────────── */
+.form-page {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background: #fff;
+}
+
+.form-page-title {
+    font-size: clamp(4rem, 12vw, 7rem);
+    font-weight: 900;
+    color: #2A79C3;
+    text-align: center;
+    line-height: 0.95;
+    margin: 0 0 40px;
 }
 
 .profile-card {
