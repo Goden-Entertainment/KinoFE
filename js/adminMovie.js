@@ -1,5 +1,6 @@
 const url = `http://localhost:8080`;
 
+//test
 //Fetch all movies
 async function getMovies() {
     try {
